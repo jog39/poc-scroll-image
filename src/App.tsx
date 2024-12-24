@@ -1,13 +1,17 @@
 import React from 'react';
 import { ImageViewer } from './components/ImageViewer';
 
-// You can add your images to the public directory and reference them like this
-const images = [
-  '/images/image1.jpg',  // This will look for /public/images/image1.jpg
-  '/images/image2.jpg',
-  '/images/image3.jpg',
-  '/images/image4.jpg',
-];
+const buildImageUrl = index => {
+  if (index < 10) {
+    return `/images/out-00{index + 1}.jpg`
+  }
+  if (index >= 10 && index < 100) {
+    return `/images/out-0{index + 1}.jpg`
+  }
+  return `/images/out-{index + 1}.jpg`
+}
+
+const images = Array.from(Array(239).keys()).map(buildImageUrl)
 
 function App() {
   return (
