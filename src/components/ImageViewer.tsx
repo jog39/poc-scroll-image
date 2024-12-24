@@ -1,7 +1,6 @@
 import React from 'react';
 import { useScrollImage } from '../hooks/useScrollImage';
 import { useImagePreload } from '../hooks/useImagePreload';
-import { ChevronDown, ChevronUp } from 'lucide-react';
 
 interface ImageViewerProps {
   images: string[];
@@ -22,25 +21,6 @@ export function ImageViewer({ images }: ImageViewerProps) {
               alt={`Image ${currentIndex + 1}`}
               className="w-full h-full object-cover transition-opacity duration-300"
             />
-          </div>
-
-          {/* Navigation indicators */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 bottom-8 flex flex-col items-center gap-2 text-white">
-            {currentIndex > 0 && (
-              <div className="animate-bounce">
-                <ChevronUp className="w-6 h-6" />
-              </div>
-            )}
-            <div className="text-center">
-              <span className="text-lg font-medium">
-                {currentIndex + 1} / {images.length}
-              </span>
-            </div>
-            {currentIndex < images.length - 1 && (
-              <div className="animate-bounce">
-                <ChevronDown className="w-6 h-6" />
-              </div>
-            )}
           </div>
         </div>
       </div>

@@ -3,22 +3,10 @@ import { useState, useEffect } from 'react';
 export function useScrollImage(images: string[]) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [lastScrollTime, setLastScrollTime] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentTime = Date.now();
       const currentScrollY = window.scrollY;
-      
-      // Add a time-based throttle (300ms between changes)
-      if (currentTime - lastScrollTime < 300) {
-        return;
-      }
-
-      // Add a minimum scroll threshold (100px)
-      if (Math.abs(currentScrollY - lastScrollY) < 100) {
-        return;
-      }
       
       if (currentScrollY > lastScrollY) {
         // Scrolling down
@@ -33,7 +21,6 @@ export function useScrollImage(images: string[]) {
       }
       
       setLastScrollY(currentScrollY);
-      setLastScrollTime(currentTime);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -41,7 +28,7 @@ export function useScrollImage(images: string[]) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [lastScrollY, lastScrollTime, images.length]);
+  }, [lastScrollY, images.length]);
 
   return {
     currentImage: images[currentIndex],
