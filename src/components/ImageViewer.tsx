@@ -1,29 +1,40 @@
-import React from 'react';
-import { useScrollImage } from '../hooks/useScrollImage';
-import { useImagePreload } from '../hooks/useImagePreload';
+import React, { useState, useEffect } from 'react';
 
-interface ImageViewerProps {
-  images: string[];
-}
+const ImageViewer = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(1);
+  const totalImages = 240;
 
-export function ImageViewer({ images }: ImageViewerProps) {
-  const { currentImage, currentIndex } = useScrollImage(images);
-  useImagePreload(images, currentIndex);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercentage = scrollPosition / documentHeight;
+      
+      // Calculate the image index based on scroll position
+      const newIndex = Math.max(1, Math.min(
+        Math.ceil(scrollPercentage * totalImages),
+        totalImages
+      ));
+      
+      setCurrentImageIndex(newIndex);
+    };
 
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Format the index to have leading zeros (001, 002, etc.)
+  const formattedIndex = String(currentImageIndex).padStart(3, '0');
+  
   return (
-    <div className="relative min-h-[200vh]">
-      <div className="fixed inset-0 flex items-center justify-center bg-black/90">
-        <div className="relative max-w-4xl w-full mx-auto px-4">
-          {/* Image container */}
-          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg">
-            <img
-              src={currentImage}
-              alt={`Image ${currentIndex + 1}`}
-              className="w-full h-full object-cover transition-opacity duration-300"
-            />
-          </div>
-        </div>
-      </div>
+    <div className="w-full max-w-4xl mx-auto">
+      <img
+        src={`/images/out-${formattedIndex}.jpg`}
+        alt="Sequence frame"
+        className="w-full h-auto"
+      />
     </div>
   );
-}
+};
+
+export default ImageViewer;

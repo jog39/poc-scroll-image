@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  @apply bg-black;
+}
+
+/* Smooth scrolling for a better experience */
+html {
+  scroll-behavior: smooth;
+}
