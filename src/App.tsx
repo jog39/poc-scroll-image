@@ -6,7 +6,7 @@ export default function App() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <div className="h-[600vh]">
+    <div className="h-[1200vh]">
       <ImageSequence 
         totalImages={totalImages} 
         onIndexChange={setCurrentIndex}
