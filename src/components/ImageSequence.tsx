@@ -33,7 +33,7 @@ export const ImageSequence: React.FC<ImageSequenceProps> = ({ totalImages }) => 
 
   const getImagePath = (index: number) => {
     const paddedIndex = String(index + 1).padStart(3, '0');
-    return `/public/images/out-${paddedIndex}.jpg`;
+    return `/images/out-${paddedIndex}.jpg`;
   };
 
   const drawImage = async (index: number) => {
