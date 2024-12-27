@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 export const useImagePreloader = () => {
   const imageCache = useRef<Map<string, HTMLImageElement>>(new Map());
@@ -29,7 +29,7 @@ export const useImagePreloader = () => {
   }, []);
 
   const preloadImages = useCallback((srcs: string[]) => {
-    srcs.forEach(preloadImage);
+    return Promise.all(srcs.map(preloadImage));
   }, [preloadImage]);
 
   const getPreloadedImage = useCallback((src: string) => {
