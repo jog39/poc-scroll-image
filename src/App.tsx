@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { ImageSequence } from './components/ImageSequence';
 
 export default function App() {
-  const totalImages = 147;
+  const totalImages = 240;
   const [currentIndex, setCurrentIndex] = useState(0);
 
   return (
-    <div className="h-[300vh]">
+    <div className="h-[600vh]">
       <ImageSequence 
         totalImages={totalImages} 
         onIndexChange={setCurrentIndex}
